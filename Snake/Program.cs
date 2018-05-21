@@ -4,16 +4,19 @@
  * Date: 05/19/2018
  * Time: 03:47 PM
  */
- 
+ //todo nahoru a dolu vic cekani nez doboku..
 using System;
 using System.Threading;
+using System.Collections.Generic;
 
 namespace Snake
 {
 	class Program
-	{
+	{	
 		public static void Main(string[] args)
 		{	
+			List<int> logx = new List<int>();
+			List<int> logy = new List<int>();
 			Console.Title = "Snake!";
 			Console.CursorVisible=false;
 			Console.BackgroundColor = ConsoleColor.DarkBlue;
@@ -23,37 +26,34 @@ namespace Snake
 			int[,] log = new int[winWidth*winHigth,2];
 			int lenght = 0;
 			Console.SetWindowSize(winWidth,winHigth);
-			for(int i=0;i<1;i++)
-				for(int j=0; j<winWidth*winHigth;j++)
-					log[j,i]=0;
-			
+			Console.SetBufferSize(winWidth,winHigth);
 			ConsoleKeyInfo pressed;
+			Console.SetCursorPosition(winWidth/2,winHigth/2);
+			Console.Write(body);
+			logx.Add(winWidth/2);
+			logy.Add(winHigth/2);
 			pressed = Console.ReadKey();
 			do{
 				if(Console.KeyAvailable==true){
-				pressed = Console.ReadKey();
+				pressed = Console.ReadKey(false);
 				}
-				Console.SetCursorPosition(log[lenght,0],log[lenght,1]);
+				Console.SetCursorPosition(logx[lenght],logy[lenght]);
 				Console.Write(' ');
 				if(pressed.Key == ConsoleKey.RightArrow){
-					Console.SetCursorPosition(log[lenght,0]+1,log[lenght,1]);
-					log[lenght,0]=log[lenght,0]+1;
+					Console.SetCursorPosition(logx[lenght]+1,logy[lenght]);
+					logx[lenght]=logx[lenght]+1;
 				}else if(pressed.Key == ConsoleKey.LeftArrow){
-					Console.SetCursorPosition(log[lenght,0]-1,log[lenght,1]);
-					log[lenght,0]=log[lenght,0]-1;
+					Console.SetCursorPosition(logx[lenght]-1,logy[lenght]);
+					logx[lenght]=logx[lenght]-1;
 				}else if(pressed.Key == ConsoleKey.UpArrow){
-					Console.SetCursorPosition(log[lenght,0],log[lenght,1]-1);
-					log[lenght,1]=log[lenght,1]-1;
+					Console.SetCursorPosition(logx[lenght],logy[lenght]-1);
+					logy[lenght]=logy[lenght]-1;
 				} else if(pressed.Key == ConsoleKey.DownArrow){
-					Console.SetCursorPosition(log[lenght,0],log[lenght,1]+1);
-					log[lenght,1]=log[lenght,1]+1;
+					Console.SetCursorPosition(logx[lenght],logy[lenght]+1);
+					logy[lenght]=logy[lenght]+1;
 				}Console.Write(body);
-				if((pressed.Modifiers & ConsoleModifiers.Shift) != 0)
-				Thread.Sleep(20);
-				else Thread.Sleep(200);
+					Thread.Sleep(100);
 			}while(pressed.Key!=ConsoleKey.Escape);
-			
-			Console.Read();
 		}
 	}
 }
