@@ -1,37 +1,34 @@
 ﻿/*
  * Created by SharpDevelop.
- * User: Ventvo
- * Date: 05/19/2018
- * Time: 03:47 PM
+ * User: Ventr
+ * Date: 05/22/2018
+ * Time: 08:08 AM
  */
- //todo nahoru a dolu vic cekani nez doboku..
 using System;
 using System.Threading;
 using System.Collections.Generic;
 
 namespace Snake
 {
-	class Program
-	{	
-		public static void Main(string[] args)
-		{	
+	public class Game
+	{
+		List<int> logx = new List<int>();
+		List<int> logy = new List<int>();
+		char body = '█';
+		int lenght = 0;
+		ConsoleKeyInfo pressed;
+		
+		public void Start()
+		{
 			List<int> logx = new List<int>();
 			List<int> logy = new List<int>();
-			Console.Title = "Snake!";
-			Console.CursorVisible=false;
-			Console.BackgroundColor = ConsoleColor.DarkBlue;
-			Console.Clear();
-			Int16 winWidth = 100, winHigth = 40;
 			char body = '█';
-			int[,] log = new int[winWidth*winHigth,2];
 			int lenght = 0;
-			Console.SetWindowSize(winWidth,winHigth);
-			Console.SetBufferSize(winWidth,winHigth);
 			ConsoleKeyInfo pressed;
-			Console.SetCursorPosition(winWidth/2,winHigth/2);
+			Console.SetCursorPosition(Console.BufferWidth/2,Console.BufferHeight/2);
 			Console.Write(body);
-			logx.Add(winWidth/2);
-			logy.Add(winHigth/2);
+			logx.Add(Console.BufferWidth/2);
+			logy.Add(Console.BufferHeight/2);
 			pressed = Console.ReadKey();
 			do{
 				if(Console.KeyAvailable==true){
