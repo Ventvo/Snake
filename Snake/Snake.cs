@@ -18,16 +18,18 @@ namespace Snake
 			char border = '█';
 			char point = '*';
 			char space = ' ';
-			bool colision=true;
 			Int16 delay = 200;
+			Int16 shortdelay = 60;
 			Console.Title = "Snake!";
 			Console.CursorVisible=false;
 			Console.BackgroundColor = ConsoleColor.DarkBlue;
 			Console.Clear();
-			Int16 winWidth = 50, winHigth = 20;
+			Sounds snd = new Sounds();
+			snd.GameSound();
+			Int16 winWidth = 100, winHigth = 40;
 			Console.SetWindowSize(winWidth,winHigth);
 			Console.SetBufferSize(winWidth,winHigth);
-			Game gm = new Game(border,body,point,space,colision,delay);
+			Game gm = new Game(border,body,point,space,delay,shortdelay);
 			gm.Start();
 		}
 	}

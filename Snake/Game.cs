@@ -7,74 +7,53 @@
 using System;
 using System.Threading;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Snake
 {
 	public class Game
-	{	//declaratio
+	{	//declaration
 		List<Int16> logx = new List<Int16>();
 		List<Int16> logy = new List<Int16>();
 		char body,point,space,border;
-		Int16 length = 0,delay;
+		Int16 length = 0,delay,shortdelay,timer;
 		ConsoleKeyInfo pressed,pressed1;
-		Boolean test=false,over=false,colision;
+		Boolean over=false;
 		Int16 px,py;
+		Int16 pointc=1;
 		
-		public Game(char border,char body,char point,char space, bool colision, Int16 delay){
+		public Game(char border,char body,char point,char space, Int16 delay, Int16 shortdelay){
 			this.body=body;
 			this.point=point;
 			this.space=space;
-			this.colision=colision;
 			this.delay=delay;
+			this.shortdelay=shortdelay;
 			this.border=border;
+			this.timer=delay;
 		}
 		
 		//main game loop
 		public void Start(){
-			Random rnd = new Random();
+			
 			Console.SetCursorPosition(0,0);
 			Console.Write("Points: "+length);
-			px = (Int16)rnd.Next(2,Console.BufferWidth-1);
-			py = (Int16)rnd.Next(1,Console.BufferHeight-1);
-			Console.SetCursorPosition(px,py);
-			Console.Write(point);
+			genpoint();
 			Console.SetCursorPosition(Console.BufferWidth/2,Console.BufferHeight/2);
+			Console.ForegroundColor=ConsoleColor.DarkMagenta;
 			Console.Write(body);
 			logx.Add(Convert.ToInt16(Console.BufferWidth/2));
 			logy.Add(Convert.ToInt16(Console.BufferHeight/2));
-			Console.SetCursorPosition(Console.BufferWidth-1,Console.BufferHeight-1);
-			Console.Write(border);
-			for(int i=0;i<Console.BufferWidth;i++){
-				Console.SetCursorPosition(i,1);
-				Console.Write(border);
-			}
-			for(int i=2;i<Console.BufferHeight-1;i++){
-				Console.SetCursorPosition(Console.BufferWidth-1,i);
-				Console.Write(border);
-			}
 			pressed = Console.ReadKey(false);
 			do{
 				move();
-				
-				Thread.Sleep(delay);
+				Thread.Sleep(timer);
 			}while(!(pressed.Key==ConsoleKey.Escape||over));
 		}
 		
 		//detect point collect
-		private bool Pointget(){
-			Random rnd = new Random();
+		bool Pointget(){
 			if(px==logx[length]&&py==logy[length]){
-				do{
-					px = (Int16)rnd.Next(2,Console.BufferWidth-2);
-					py = (Int16)rnd.Next(2,Console.BufferHeight-2);
-					for(int i=0;i<length;i++){
-						if(px==logx[i]||py==logy[i]) test=true;
-						else test=false;
-					}
-				}while(test);
-				
-				Console.SetCursorPosition(px,py);
-				Console.Write(point);
+				genpoint();
 				length++;
 				Console.SetCursorPosition(0,0);
 				Console.Write("                                                                   ");
@@ -85,10 +64,100 @@ namespace Snake
 			}else return true;
 		}
 		
+		//generate point on screen
+		void genpoint(){
+			Random rnd = new Random();
+			switch (pointc){
+							case 1:{
+								Console.ForegroundColor=ConsoleColor.Blue;
+								pointc++;
+								break;
+								}
+							case 2:{
+								Console.ForegroundColor=ConsoleColor.Cyan;
+								pointc++;
+								break;
+								}
+							case 3:{
+								Console.ForegroundColor=ConsoleColor.Black;
+								pointc++;
+								break;
+								}
+							case 4:{
+								Console.ForegroundColor=ConsoleColor.DarkCyan;
+								pointc++;
+								break;
+								}
+							case 5:{
+								Console.ForegroundColor=ConsoleColor.DarkGray;
+								pointc++;
+								break;
+								}
+							case 6:{
+								Console.ForegroundColor=ConsoleColor.DarkGreen;
+								pointc++;
+								break;
+								}
+							case 7:{
+								Console.ForegroundColor=ConsoleColor.DarkMagenta;
+								pointc++;
+								break;
+								}
+							case 8:{
+								Console.ForegroundColor=ConsoleColor.DarkRed;
+								pointc++;
+								break;
+								}
+							case 9:{
+								Console.ForegroundColor=ConsoleColor.DarkYellow;
+								pointc++;
+								break;
+								}
+							case 10:{
+								Console.ForegroundColor=ConsoleColor.Gray;
+								pointc++;
+								break;
+								}
+							case 11:{
+								Console.ForegroundColor=ConsoleColor.Green;
+								pointc++;
+								break;
+								}
+							case 12:{
+								Console.ForegroundColor=ConsoleColor.Magenta;
+								pointc++;
+								break;
+								}
+							case 13:{
+								Console.ForegroundColor=ConsoleColor.Red;
+								pointc++;
+								break;
+								}
+							case 14:{
+								Console.ForegroundColor=ConsoleColor.White;
+								pointc++;
+								break;
+								}
+							default:{
+								Console.ForegroundColor=ConsoleColor.Yellow;
+								pointc=1;
+								break;
+								}
+						}
+			do{
+				px = (Int16)rnd.Next(2,Console.BufferWidth-2);
+				py = (Int16)rnd.Next(2,Console.BufferHeight-2);
+			}while(logx.Contains(px)&&logy.Contains(py));
+			Console.SetCursorPosition(px,py);
+			Console.Write(point);
+		}
+		
 		//moving snake
-		private void move(){
-				if(Console.KeyAvailable){
+		void move(){
+				if(Console.KeyAvailable){	
 					pressed1 = Console.ReadKey(false);
+					if(pressed==pressed1)timer=shortdelay;
+					else timer=delay;
 					if(pressed1.Key == ConsoleKey.RightArrow||pressed1.Key == ConsoleKey.LeftArrow||pressed1.Key == ConsoleKey.UpArrow||pressed1.Key == ConsoleKey.DownArrow||pressed1.Key==ConsoleKey.Escape||((pressed1.Key == ConsoleKey.RightArrow&&pressed.Key == ConsoleKey.LeftArrow)||(pressed1.Key == ConsoleKey.UpArrow&&pressed.Key == ConsoleKey.DownArrow)||((pressed.Key == ConsoleKey.RightArrow&&pressed1.Key == ConsoleKey.LeftArrow)||(pressed.Key == ConsoleKey.UpArrow&&pressed1.Key == ConsoleKey.DownArrow)))){
 						pressed=pressed1;
 					}else{
@@ -99,49 +168,92 @@ namespace Snake
 						Console.Write("Points: "+length);
 					}
 				}
-				Console.SetCursorPosition(logx[0],logy[0]);
-				Console.Write(space);
-				if(pressed.Key == ConsoleKey.RightArrow){
-					Console.SetCursorPosition(logx[length]+1,logy[length]);
-					if(logx.Contains(Convert.ToInt16(logx[length]+1))&&logy.Contains(logy[length])&&length>0&&colision)
-						over=true;
-					logx.Add(Convert.ToInt16(logx[length]+1));
-					logy.Add(Convert.ToInt16(logy[length]));
-					if(Pointget()){
-					logx.RemoveAt(0);
-					logy.RemoveAt(0);
+				switch(pressed.Key){
+					
+					case ConsoleKey.RightArrow:{
+						Console.SetCursorPosition(logx[length]+1,logy[length]);
+						logx.Add(Convert.ToInt16(logx[length]+1));
+						logy.Add(Convert.ToInt16(logy[length]));
+						Console.ForegroundColor=ConsoleColor.DarkMagenta;
+						Console.Write(body);
+						Console.SetCursorPosition(logx[0],logy[0]);
+						Console.Write(space);
+						if(Pointget()){
+							logx.RemoveAt(0);
+							logy.RemoveAt(0);
+						}
+						over = colision(logx[length]+1,logy[length]);
+						break;
 					}
-				}else if(pressed.Key == ConsoleKey.LeftArrow){
-					Console.SetCursorPosition(logx[length]-1,logy[length]);
-					if(logx.Contains(Convert.ToInt16(logx[length]-1))&&logy.Contains(logy[length])&&length>0&&colision)
-						over=true;
-					logx.Add(Convert.ToInt16(logx[length]-1));
-					logy.Add(Convert.ToInt16(logy[length]));
-					if(Pointget()){
-					logx.RemoveAt(0);
-					logy.RemoveAt(0);
+					
+					case ConsoleKey.LeftArrow:{
+						Console.SetCursorPosition(logx[length]-1,logy[length]);
+						logx.Add(Convert.ToInt16(logx[length]-1));
+						logy.Add(Convert.ToInt16(logy[length]));
+						Console.ForegroundColor=ConsoleColor.DarkMagenta;
+						Console.Write(body);
+						Console.SetCursorPosition(logx[0],logy[0]);
+						Console.Write(space);
+						if(Pointget()){
+							logx.RemoveAt(0);
+							logy.RemoveAt(0);
+						}
+						over = colision(logx[length]-1,logy[length]);
+						break;
 					}
-				}else if(pressed.Key == ConsoleKey.UpArrow){
-					Console.SetCursorPosition(logx[length],logy[length]-1);
-					if(logx.Contains(logx[length])&&logy.Contains(Convert.ToInt16(logy[length]-1))&&length>0&&colision)
-						over=true;
-					logx.Add(Convert.ToInt16(logx[length]));
-					logy.Add(Convert.ToInt16(logy[length]-1));
-					if(Pointget()){
-					logx.RemoveAt(0);
-					logy.RemoveAt(0);
+					
+					case ConsoleKey.UpArrow:{
+						Console.SetCursorPosition(logx[length],logy[length]-1);
+						logx.Add(Convert.ToInt16(logx[length]));
+						logy.Add(Convert.ToInt16(logy[length]-1));
+						Console.ForegroundColor=ConsoleColor.DarkMagenta;
+						Console.Write(body);
+						Console.SetCursorPosition(logx[0],logy[0]);
+						Console.Write(space);
+						if(Pointget()){
+							logx.RemoveAt(0);
+							logy.RemoveAt(0);
+						}
+						over = colision(logx[length],logy[length]-1);
+						break;
 					}
-				} else if(pressed.Key == ConsoleKey.DownArrow){
-					Console.SetCursorPosition(logx[length],logy[length]+1);
-					if(logx.Contains(logx[length])&&logy.Contains(Convert.ToInt16(logy[length]+1))&&length>0&&colision)
-						over=true;
-   					logx.Add(Convert.ToInt16(logx[length]));
-					logy.Add(Convert.ToInt16(logy[length]+1));
-					if(Pointget()){
-					logx.RemoveAt(0);
-					logy.RemoveAt(0);
+					
+					case ConsoleKey.DownArrow:{
+						Console.SetCursorPosition(logx[length],logy[length]+1);
+   						logx.Add(Convert.ToInt16(logx[length]));
+						logy.Add(Convert.ToInt16(logy[length]+1));
+						Console.ForegroundColor=ConsoleColor.DarkMagenta;
+						Console.Write(body);
+						Console.SetCursorPosition(logx[0],logy[0]);
+						Console.Write(space);
+						if(Pointget()){
+							logx.RemoveAt(0);
+							logy.RemoveAt(0);
+						}
+						over = colision(logx[length],logy[length]+1);
+						break;
 					}
-				}Console.Write(body);
+				}
+		}
+		
+		//colision detection
+		bool colision(Int16 x, Int16 y){
+			if(logx.Contains(x)&&logy.Contains(y))
+				if(logx.IndexOf(x)==logy.IndexOf(y))
+					return true;
+			return false;
+		}
+		bool colision(Int32 x, Int16 y){
+			if(logx.Contains(Convert.ToInt16(x))&&logy.Contains(y))
+				if(logx.IndexOf(Convert.ToInt16(x))==logy.IndexOf(y))
+					return true;
+			return false;
+		}
+		bool colision(Int16 x, Int32 y){
+			if(logx.Contains(x)&&logy.Contains(Convert.ToInt16(y)))
+				if(logx.IndexOf(x)==logy.IndexOf(Convert.ToInt16(y)))
+					return true;
+			return false;
 		}
 	}
 }
