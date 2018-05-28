@@ -7,7 +7,6 @@
 using System;
 using System.Threading;
 using System.Collections.Generic;
-using System.IO;
 
 namespace Snake
 {
@@ -35,6 +34,8 @@ namespace Snake
 		//main game loop
 		public void Start(){
 			
+			Render rend = new Render();
+			rend.Game(border);
 			Console.SetCursorPosition(0,0);
 			Console.Write("Points: "+length);
 			genpoint();
@@ -172,6 +173,7 @@ namespace Snake
 					
 					case ConsoleKey.RightArrow:{
 						Console.SetCursorPosition(logx[length]+1,logy[length]);
+						over = colision(logx[length]+1,logy[length]);
 						logx.Add(Convert.ToInt16(logx[length]+1));
 						logy.Add(Convert.ToInt16(logy[length]));
 						Console.ForegroundColor=ConsoleColor.DarkMagenta;
@@ -182,12 +184,12 @@ namespace Snake
 							logx.RemoveAt(0);
 							logy.RemoveAt(0);
 						}
-						over = colision(logx[length]+1,logy[length]);
 						break;
 					}
 					
 					case ConsoleKey.LeftArrow:{
 						Console.SetCursorPosition(logx[length]-1,logy[length]);
+						over = colision(logx[length]-1,logy[length]);
 						logx.Add(Convert.ToInt16(logx[length]-1));
 						logy.Add(Convert.ToInt16(logy[length]));
 						Console.ForegroundColor=ConsoleColor.DarkMagenta;
@@ -198,12 +200,12 @@ namespace Snake
 							logx.RemoveAt(0);
 							logy.RemoveAt(0);
 						}
-						over = colision(logx[length]-1,logy[length]);
 						break;
 					}
 					
 					case ConsoleKey.UpArrow:{
 						Console.SetCursorPosition(logx[length],logy[length]-1);
+						over = colision(logx[length],logy[length]-1);
 						logx.Add(Convert.ToInt16(logx[length]));
 						logy.Add(Convert.ToInt16(logy[length]-1));
 						Console.ForegroundColor=ConsoleColor.DarkMagenta;
@@ -214,13 +216,13 @@ namespace Snake
 							logx.RemoveAt(0);
 							logy.RemoveAt(0);
 						}
-						over = colision(logx[length],logy[length]-1);
 						break;
 					}
 					
 					case ConsoleKey.DownArrow:{
 						Console.SetCursorPosition(logx[length],logy[length]+1);
-   						logx.Add(Convert.ToInt16(logx[length]));
+   						over = colision(logx[length],logy[length]+1);
+						logx.Add(Convert.ToInt16(logx[length]));
 						logy.Add(Convert.ToInt16(logy[length]+1));
 						Console.ForegroundColor=ConsoleColor.DarkMagenta;
 						Console.Write(body);
@@ -230,7 +232,6 @@ namespace Snake
 							logx.RemoveAt(0);
 							logy.RemoveAt(0);
 						}
-						over = colision(logx[length],logy[length]+1);
 						break;
 					}
 				}
@@ -238,21 +239,30 @@ namespace Snake
 		
 		//colision detection
 		bool colision(Int16 x, Int16 y){
+			if(y<2||y>Console.BufferHeight-2||x<1||x>Console.BufferWidth-2)
+				return true;
 			if(logx.Contains(x)&&logy.Contains(y))
-				if(logx.IndexOf(x)==logy.IndexOf(y))
-					return true;
+				for(int i=0;i<length;i++)
+					if(logx[i]==x&&logy[i]==y)
+						return true;
 			return false;
 		}
 		bool colision(Int32 x, Int16 y){
+			if(y<2||y>Console.BufferHeight-2||x<1||x>Console.BufferWidth-2)
+				return true;
 			if(logx.Contains(Convert.ToInt16(x))&&logy.Contains(y))
-				if(logx.IndexOf(Convert.ToInt16(x))==logy.IndexOf(y))
-					return true;
+				for(int i=0;i<length;i++)
+					if((logx[i]==x&&logy[i]==y)||y<2||y>Console.BufferHeight-2||x<1||x>Console.BufferWidth-2)
+						return true;
 			return false;
 		}
 		bool colision(Int16 x, Int32 y){
+			if(y<2||y>Console.BufferHeight-2||x<1||x>Console.BufferWidth-2)
+				return true;
 			if(logx.Contains(x)&&logy.Contains(Convert.ToInt16(y)))
-				if(logx.IndexOf(x)==logy.IndexOf(Convert.ToInt16(y)))
-					return true;
+				for(int i=0;i<length;i++)
+					if((logx[i]==x&&logy[i]==y)||y<2||y>Console.BufferHeight-2||x<1||x>Console.BufferWidth-2)
+						return true;
 			return false;
 		}
 	}
