@@ -26,9 +26,12 @@ namespace Snake
 			Console.Clear();
 			Sounds snd = new Sounds();
 			snd.GameSound();
-			Int16 winWidth = 100, winHigth = 40;
+			Int16 winWidth = 160, winHigth = 50;
 			Console.SetWindowSize(winWidth,winHigth);
 			Console.SetBufferSize(winWidth,winHigth);
+			Render rndr = new Render();
+			rndr.Menu();
+			Console.Clear();
 			Game gm = new Game(border,body,point,space,delay,shortdelay);
 			gm.Start();
 		}
