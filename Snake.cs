@@ -30,21 +30,25 @@ namespace Snake
 			char border = '█';
 			char point = '*';
 			char space = ' ';
+			bool again;
 			Int16 delay = 200;
 			Int16 shortdelay = 60;
 			Console.Title = "Snake!";
 			Console.CursorVisible = false;
-			Console.BackgroundColor = ConsoleColor.DarkBlue;
-			Console.Clear();
-			Sounds snd = new Sounds();
-			snd.Play("Snake");
 			Console.SetWindowSize(Console.LargestWindowWidth, Console.LargestWindowHeight);
 			Console.SetBufferSize(Console.LargestWindowWidth, Console.LargestWindowHeight);
 			ShowWindow(ThisConsole, MAXIMIZE);
+			Menu menu = new Menu(border, body, point, space, delay, shortdelay);
+			Sounds snd = new Sounds();
 			Render rndr = new Render();
-			Console.CursorVisible = false;
-			rndr.Menu();
 			Console.Clear();
+			snd.Play("Snake");
+			do {
+				again = menu.Main();
+				Console.BackgroundColor = ConsoleColor.DarkBlue;
+				Console.ForegroundColor = ConsoleColor.Gray;
+				Console.Clear();
+			} while(again);
 			Game gm = new Game(border, body, point, space, delay, shortdelay);
 			gm.Start();
 		}

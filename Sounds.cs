@@ -21,10 +21,10 @@ namespace Snake
 		}
 		
 		public void Play(string sound)
-        {
-			SoundPlayer player = new SoundPlayer(Environment.CurrentDirectory+@"\sounds\"+sound+".wav");
+		{
+			SoundPlayer player = new SoundPlayer(Environment.CurrentDirectory + @"\sounds\" + sound + ".wav");
 			player.PlayLooping();
-        }
+		}
 		
 	}
 		
