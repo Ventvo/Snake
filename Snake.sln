@@ -2,9 +2,7 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 # SharpDevelop 5.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snake", "Snake\Snake.csproj", "{A51099CA-D1D6-4231-977A-35492183C200}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snake", "Snake.csproj", "{9EEB35A7-C78E-47D3-9399-85771C8C4C04}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snake", "Snake.csproj", "{95EFC84A-63A6-4657-BEED-9D789C03A3E8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -12,13 +10,9 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A51099CA-D1D6-4231-977A-35492183C200}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A51099CA-D1D6-4231-977A-35492183C200}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A51099CA-D1D6-4231-977A-35492183C200}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A51099CA-D1D6-4231-977A-35492183C200}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9EEB35A7-C78E-47D3-9399-85771C8C4C04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9EEB35A7-C78E-47D3-9399-85771C8C4C04}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9EEB35A7-C78E-47D3-9399-85771C8C4C04}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9EEB35A7-C78E-47D3-9399-85771C8C4C04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95EFC84A-63A6-4657-BEED-9D789C03A3E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95EFC84A-63A6-4657-BEED-9D789C03A3E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95EFC84A-63A6-4657-BEED-9D789C03A3E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95EFC84A-63A6-4657-BEED-9D789C03A3E8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

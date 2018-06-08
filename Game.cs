@@ -47,6 +47,7 @@ namespace Snake
 			pressed = Console.ReadKey(false);
 			do{
 				move();
+				Console.CursorVisible=false;
 				Thread.Sleep(timer);
 			}while(!(pressed.Key==ConsoleKey.Escape||over));
 		}

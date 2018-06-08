@@ -1,0 +1,4 @@
+C:\Users\Ventr\Documents\GitHub\Snake\obj\Release\Snake.csprojResolveAssemblyReference.cache
+C:\Users\Ventr\Documents\GitHub\Snake\obj\Release\Snake.exe
+C:\Users\Ventr\Documents\GitHub\Snake\Snake.exe.config
+C:\Users\Ventr\Documents\GitHub\Snake\Snake.exe
