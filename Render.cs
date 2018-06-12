@@ -17,11 +17,21 @@ namespace Snake
 		{
 		}
 		
-		public void Menu()
+		public void Win()
 		{
-			int leftcursor;
-			int topcursor;
 			Console.Clear();
+			Console.ForegroundColor = ConsoleColor.Red;
+			Console.CursorLeft = Console.LargestWindowWidth / 18;
+			Console.CursorTop = Console.LargestWindowHeight / 3;
+			Text("You win", 1);
+		}
+		
+		public void Menu(bool skalkamode)
+		{
+			int leftcursor = 0;
+			int topcursor = 0;
+			Console.Clear();
+			Console.Write("Press '0' for quit");
 			leftcursor = Console.LargestWindowWidth / 5;
 			topcursor = 1;
 			Console.CursorLeft = leftcursor;
@@ -53,6 +63,11 @@ namespace Snake
 			Console.CursorLeft = leftcursor - 3;
 			Console.CursorTop = Console.CursorTop + 3;
 			Console.Write('3');
+			
+			if (skalkamode) {
+				Console.SetCursorPosition(0, Console.LargestWindowHeight - 1);
+				Console.Write("Skalka mode activated! (10 points = you win)");
+			}
 		}
 		
 		void Text(string text, Int16 font)

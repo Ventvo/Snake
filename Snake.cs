@@ -30,7 +30,7 @@ namespace Snake
 			char border = '█';
 			char point = '*';
 			char space = ' ';
-			bool again;
+			bool again, skalkamode = true;
 			Int16 delay = 200;
 			Int16 shortdelay = 60;
 			Console.Title = "Snake!";
@@ -38,19 +38,16 @@ namespace Snake
 			Console.SetWindowSize(Console.LargestWindowWidth, Console.LargestWindowHeight);
 			Console.SetBufferSize(Console.LargestWindowWidth, Console.LargestWindowHeight);
 			ShowWindow(ThisConsole, MAXIMIZE);
-			Menu menu = new Menu(border, body, point, space, delay, shortdelay);
+			Menu menu = new Menu(border, body, point, space, delay, shortdelay, skalkamode);
 			Sounds snd = new Sounds();
 			Render rndr = new Render();
 			Console.Clear();
-			snd.Play("Snake");
 			do {
-				again = menu.Main();
 				Console.BackgroundColor = ConsoleColor.DarkBlue;
 				Console.ForegroundColor = ConsoleColor.Gray;
+				again = menu.Main();
 				Console.Clear();
 			} while(again);
-			Game gm = new Game(border, body, point, space, delay, shortdelay);
-			gm.Start();
 		}
 	}
 }

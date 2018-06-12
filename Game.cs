@@ -7,6 +7,7 @@
 using System;
 using System.Threading;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Snake
 {
@@ -21,6 +22,7 @@ namespace Snake
 		Boolean over = false;
 		Int16 px, py;
 		Int16 pointc = 1;
+		Sounds snd = new Sounds();
 		
 		public Game(char border, char body, char point, char space, Int16 delay, Int16 shortdelay)
 		{
@@ -34,9 +36,8 @@ namespace Snake
 		}
 		
 		//main game loop
-		public void Start()
+		public bool Start(bool skalkamode)
 		{
-			
 			Render rend = new Render();
 			rend.Game(border);
 			Console.SetCursorPosition(0, 0);
@@ -52,7 +53,13 @@ namespace Snake
 				move();
 				Console.CursorVisible = false;
 				Thread.Sleep(timer);
+				if (skalkamode && length == 10) {
+					length = 0;
+					return true;
+				}
 			} while(!(pressed.Key == ConsoleKey.Escape || over));
+			length = 0;
+			return false;
 		}
 		
 		//detect point collect
@@ -66,6 +73,7 @@ namespace Snake
 				Console.SetCursorPosition(0, 0);
 				Console.Write("Points: " + length);
 				Console.SetCursorPosition(logx[0], logy[0]);
+				snd.Sound("point");
 				return false;
 			} else
 				return true;
@@ -178,6 +186,7 @@ namespace Snake
 		//moving snake
 		void move()
 		{
+			Render rend = new Render();
 			if (Console.KeyAvailable) {	
 				pressed1 = Console.ReadKey(false);
 				if (pressed == pressed1)
@@ -188,6 +197,13 @@ namespace Snake
 					pressed = pressed1;
 				} else {
 					Console.Clear();
+					for (int i = 0; i < 10; i++) {
+						if (Console.KeyAvailable) {
+							pressed1 = Console.ReadKey(false);
+						}
+					}
+					pressed1 = pressed;
+					rend.Game(border);
 					Console.SetCursorPosition(px, py);
 					Console.Write(point);
 					Console.SetCursorPosition(0, 0);
