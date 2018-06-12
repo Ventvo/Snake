@@ -197,6 +197,10 @@ namespace Snake
 					pressed = pressed1;
 				} else {
 					Console.Clear();
+					for(int i=0;i<length+1;i++){
+						Console.SetCursorPosition(logx[i], logy[i]);
+						Console.Write(body);
+					}
 					for (int i = 0; i < 10; i++) {
 						if (Console.KeyAvailable) {
 							pressed1 = Console.ReadKey(false);

@@ -56,6 +56,10 @@ namespace Snake
 							snd.Sound("win");
 							rnd.Win();
 							Thread.Sleep(2000);
+						} else {
+							snd.Sound("win");
+							rnd.Gameover();
+							Thread.Sleep(2000);
 						}
 						Console.Clear();
 						break;

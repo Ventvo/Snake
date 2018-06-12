@@ -23,7 +23,16 @@ namespace Snake
 			Console.ForegroundColor = ConsoleColor.Red;
 			Console.CursorLeft = Console.LargestWindowWidth / 18;
 			Console.CursorTop = Console.LargestWindowHeight / 3;
-			Text("You win", 1);
+			Text("You win", 2);
+		}
+		
+		public void Gameover()
+		{
+			Console.Clear();
+			Console.ForegroundColor = ConsoleColor.Red;
+			Console.CursorLeft = Console.LargestWindowWidth / 18;
+			Console.CursorTop = Console.LargestWindowHeight / 3;
+			Text("Game over", 2);
 		}
 		
 		public void Menu(bool skalkamode)
@@ -1785,6 +1794,8 @@ namespace Snake
 		
 		public void Game(char border)
 		{
+			Console.BackgroundColor = ConsoleColor.DarkBlue;
+			Console.ForegroundColor = ConsoleColor.Gray;
 			for (int i = 0; i < Console.BufferWidth - 1; i++) {
 				Console.SetCursorPosition(i, 1);
 				Console.Write(border);
