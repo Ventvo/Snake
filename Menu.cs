@@ -76,7 +76,7 @@ namespace Snake
 					{
 						Console.Clear();
 						Console.SetCursorPosition(0, 0);
-						Console.Write("Move by arrows (double tab dirrectio for sprint).");
+						Console.Write("Move by arrows (double tab dirrectio for sprint). /nYou can pause game by draging mouse over the game area. /nIf you go to border, yourself or backwards, you gona die.");
 						Console.ReadKey();
 						break;
 					}
