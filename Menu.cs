@@ -68,16 +68,16 @@ namespace Snake
 					{
 						Console.Clear();
 						Console.SetCursorPosition(0, 0);
-						Console.Write("Work in progress (press enter)");
-						Console.Read();
+						Console.Write("Work in progress (press any key)");
+						Console.ReadKey();
 						break;
 					}
 				case 3:
 					{
 						Console.Clear();
 						Console.SetCursorPosition(0, 0);
-						Console.Write("Work in progress (press enter)");
-						Console.Read();
+						Console.Write("Move by arrows (double tab dirrectio for sprint).");
+						Console.ReadKey();
 						break;
 					}
 					
