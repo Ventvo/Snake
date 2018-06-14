@@ -32,7 +32,7 @@ namespace Snake
 			char space = ' ';
 			bool again, skalkamode = true;
 			Int16 delay = 200;
-			Int16 shortdelay = 60;
+			Int16 shortdelay = 40;
 			Console.Title = "Snake!";
 			Console.CursorVisible = false;
 			Console.SetWindowSize(Console.LargestWindowWidth, Console.LargestWindowHeight);
